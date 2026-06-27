@@ -1,3 +1,4 @@
+voeg een .env bestand toe met azure keys
 installeer alle packages
 ```
 npm install
