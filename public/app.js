@@ -21,13 +21,33 @@ sendBtn.addEventListener('click', handleSend);
 
 // Voeg een chatbericht toe
 function appendMessage(role, text) {
-  const bubble = document.createElement("div");
-  if (role === "ai") {
-    bubble.innerHTML = micromark("The Loremaster: " + text);
-  } else {
-    bubble.textContent = "Jij: " + text;
+  const isAi = role === "ai";
+
+  const row = document.createElement("div");
+  row.className = `chat ${isAi ? "chat-start" : "chat-end"}`;
+
+  if (isAi) {
+    const avatar = document.createElement("div");
+    avatar.className = "chat-image avatar";
+    avatar.innerHTML = `<div class="w-10 rounded-full bg-base-200 p-1"><img src="./loremaster.svg" alt="The Loremaster" /></div>`;
+    row.appendChild(avatar);
   }
-  chatContainer.appendChild(bubble);
+
+  const header = document.createElement("div");
+  header.className = "chat-header text-xs opacity-60 mb-1";
+  header.textContent = isAi ? "The Loremaster" : "Jij";
+
+  const bubble = document.createElement("div");
+  bubble.className = `chat-bubble ${isAi ? "chat-bubble-secondary" : "chat-bubble-primary"} prose prose-sm max-w-none`;
+  if (isAi) {
+    bubble.innerHTML = micromark(text);
+  } else {
+    bubble.textContent = text;
+  }
+
+  row.appendChild(header);
+  row.appendChild(bubble);
+  chatContainer.appendChild(row);
   chatContainer.scrollTop = chatContainer.scrollHeight;
   return bubble;
 }
@@ -55,22 +75,24 @@ async function sendMessage(message) {
     });
 
     const data = await response.json();
-    
-    loadingIndicator.remove();
+
+    loadingIndicator.closest(".chat").remove();
     const bubble = appendMessage("ai", data.response.message);
     if (data.response.sources && data.response.sources.length > 0) {
       const sourceSmall = document.createElement("small");
+      sourceSmall.className = "block mt-2 pt-2 border-t border-base-content/10 opacity-70 text-xs";
       sourceSmall.textContent = `Source: ${data.response.sources.join(", ")}`;
       bubble.appendChild(sourceSmall);
     }
 
     if (data.response.toolsUsed && data.response.toolsUsed.length > 0) {
       const toolSmall = document.createElement("small");
+      toolSmall.className = "block mt-1 opacity-70 text-xs";
       toolSmall.textContent = `Tools: ${data.response.toolsUsed.join(", ")}`;
       bubble.appendChild(toolSmall);
     }
   } catch (error) {
-    loadingIndicator.remove();
+    loadingIndicator.closest(".chat").remove();
     appendMessage("ai", "Er ging iets mis. Probeer het opnieuw.");
     console.error(error);
   }

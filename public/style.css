@@ -1,0 +1,78 @@
+/* Markdown rendering inside AI chat bubbles */
+.chat-bubble p {
+  margin: 0;
+}
+
+.chat-bubble p + p {
+  margin-top: 0.5rem;
+}
+
+.chat-bubble ul,
+.chat-bubble ol {
+  margin: 0.25rem 0;
+  padding-left: 1.25rem;
+  list-style: revert;
+}
+
+.chat-bubble li {
+  margin: 0.15rem 0;
+}
+
+.chat-bubble h1,
+.chat-bubble h2,
+.chat-bubble h3 {
+  font-weight: 700;
+  margin: 0.4rem 0 0.2rem;
+  line-height: 1.2;
+}
+
+.chat-bubble h1 { font-size: 1.15rem; }
+.chat-bubble h2 { font-size: 1.05rem; }
+.chat-bubble h3 { font-size: 1rem; }
+
+.chat-bubble code {
+  background: hsl(var(--n) / 0.25);
+  padding: 0.1rem 0.35rem;
+  border-radius: 0.3rem;
+  font-size: 0.85em;
+}
+
+.chat-bubble pre {
+  background: hsl(var(--n) / 0.3);
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 0.4rem 0;
+}
+
+.chat-bubble pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.chat-bubble a {
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.chat-bubble blockquote {
+  border-left: 3px solid currentColor;
+  padding-left: 0.75rem;
+  opacity: 0.85;
+  margin: 0.4rem 0;
+}
+
+/* Smooth, themed scrollbar for the chat area */
+#chat-container {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--bc) / 0.2) transparent;
+}
+
+#chat-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+#chat-container::-webkit-scrollbar-thumb {
+  background: hsl(var(--bc) / 0.2);
+  border-radius: 999px;
+}

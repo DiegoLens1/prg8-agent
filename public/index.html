@@ -1,25 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="fantasy">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="./style.css" />
   <script defer type="module" src="./app.js"></script>
   <title>The Loremaster</title>
 </head>
 
-<body>
-  <header>
-    <h1><img src="./loremaster.svg" width="40" height="40" style="vertical-align: middle;"> The Loremaster</h1>
-  </header>
-  <main>
-    <div id="chat-container"></div>
+<body class="min-h-screen bg-base-300">
+  <div class="flex flex-col h-screen max-w-3xl mx-auto">
+    <!-- Header -->
+    <header class="navbar bg-base-100 shadow-md rounded-b-box px-4">
+      <div class="flex-1 items-center gap-3">
+        <div class="avatar">
+          <div class="w-10 rounded-full bg-base-200 p-1">
+            <img src="./loremaster.svg" alt="Loremaster" />
+          </div>
+        </div>
+        <div>
+          <h1 class="text-lg font-bold leading-tight">The Loremaster</h1>
+          <p class="text-xs text-base-content/60">Your D&D companion</p>
+        </div>
+      </div>
+      <div class="flex-none">
+        <div class="badge badge-primary badge-outline gap-1">
+          <span class="inline-block w-2 h-2 rounded-full bg-success"></span>
+          online
+        </div>
+      </div>
+    </header>
 
-    <div>
-      <input id="user-input" type="text" placeholder="Type your message..." />
-      <button id="send-btn" disabled>Send</button>
-    </div>
-  </main>
+    <!-- Chat -->
+    <main class="flex-1 overflow-hidden flex flex-col p-4 gap-4">
+      <div id="chat-container" class="flex-1 overflow-y-auto px-1 space-y-1"></div>
+
+      <!-- Input -->
+      <div class="join w-full shadow-lg">
+        <input id="user-input" type="text" placeholder="Ask the Loremaster..."
+          class="input input-bordered join-item flex-1 focus:outline-none" />
+        <button id="send-btn" disabled class="btn btn-primary join-item">Send</button>
+      </div>
+    </main>
+  </div>
 </body>
 
 </html>
